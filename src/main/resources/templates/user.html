@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Cокровище</title>
+    <style>
+        table, th, td {
+            border: 2px solid deeppink;
+            background-color: #c4afc2;
+
+            border-collapse: collapse;
+            outline: 1px solid #ded641;
+            font-size: 12px;
+        }
+
+.col-10 {
+
+    background-image: url("https://img5.goodfon.ru/original/1920x1080/2/45/neizvestnyi-khudozhnik-devushka-s-edinorogom-1510-kartina-kh.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+    </style>
+</head>
+<body>
+<nav class=" navbar navbar-expand-sm bg-warning text-black-80 py-0">
+    <div class="navbar-collapse">
+        <ul class="navbar-nav "
+            style="font-size:120%">
+            <li class="nav-item ">
+                <span class="nav-link d-inline-block font-weight-bold pr-0"
+                      id="headerEmail"> Волшебник</span>
+                <span> с уровнем могущества: </span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link d-inline-block pr-0"
+                      id="headerRoles">
+                </span>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+                <a class="nav-link d-inline-block text-black-70 font-weight-normal"
+                   href="/logout">Отдохнуть</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<div class="container-fluid vh-100 pl-0 pr-0"
+     style="background-color: deeppink">
+    <div class="row w-100 h-100 ml-0">
+        <!--         Левая нав панель кнопки ADMIN USER-->
+
+        <div class="col-2 pr-0 pr-0 pl-0 pt-3">
+            <div class="nav flex-column nav-pills"
+                 id="v-pills-tab"
+                 role="tablist"
+                 aria-orientation="vertical">
+
+                <a sec:authorize="hasRole('ADMIN')"
+                   class="nav-link"
+                   href="/admin">Всемогущая(ий)</a>
+
+                <a sec:authorize="hasRole('USER')"
+                   class="nav-link active"
+                   id="v-pills-user-tab"
+                   data-toggle="pill"
+                   href="#v-pills-user"
+                   role="tab"
+                   aria-controls="v-pills-user"
+                   aria-selected="true">Чародей(ка)</a>
+            </div>
+        </div>
+
+        <div class="col-10 tab-content pt-2 pl-2"
+             id="v-pills-tabContent">
+            <!-- Контент  "User"-->
+            <!--            <div class="tab-pane fade" id="v-pills-user" role="tabpanel"-->
+            <!--                 aria-labelledby="v-pills-user-tab">-->
+            <div class="mx-3"
+                 style="color: cornsilk">
+                <h1>Тайные знания о</h1>
+                <div class="card mt-3">
+                    <div class="card-header"
+                         style="background-color: #776464">
+                        <h5 class="align-middle"><b>НАШЕM</b><br>Сокровище </h5>
+                    </div>
+                    <!--                        <div class="card-body">-->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Волшебный номер</th>
+                            <th scope="col">Заветное имя</th>
+                            <th scope="col">Адрес в Облаках</th>
+                            <th scope="col">Обороты вокруг Солнышка</th>
+                            <th scope="col">Уровень могущества</th>
+                        </tr>
+                        </thead>
+                        <tbody id="userTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--            </div>-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="/static/user.js"></script>
+</body>
+</html>

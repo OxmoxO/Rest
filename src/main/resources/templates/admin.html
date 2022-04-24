@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <title>Замечательный Человек</title>
+
+    <style>
+        .col-10 {
+            background-image:
+                    url("https://img1.liveinternet.ru/images/attach/c/2/73/430/73430585_large_d776fe8803c63dd1f94866b1788.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        table, th, td {
+            border: 2px solid white;
+
+        }
+
+        th, td {
+            padding: 5px 15px 5px 15px;
+            text-align: center;
+        }
+
+
+        table {
+            color: cornsilk;
+            width: 85%;
+            margin-bottom: 12%;
+            border-collapse: collapse;
+            outline: 2px solid #d38d9a;
+            font-size: 10px;
+            background: rgba(227, 32, 39, 0.56) !important;
+        }
+
+        .modal  {
+            background-image:
+                    url("https://img5.goodfon.ru/original/1920x1080/a/e4/kornelis-gerrits-deker-cornelis-gerritsz-decker-tkatskaia-ma.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+        .card {
+            background-image:
+                    url("https://arc-anglerfish-arc2-prod-bostonglobe.s3.amazonaws.com/public/AAIRQXT6VUI6NKXP4ZYVO4WKDA.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class=" navbar navbar-expand-sm bg-info text-light py-0">
+    <div class="navbar-collapse">
+        <ul class="navbar-nav "
+            style="font-size:120%">
+            <li class="nav-item ">
+                <!--                <span class="nav-link d-inline-block font-weight-bold pr-0" th:text="${authUser.getEmail()}"></span>-->
+                <span class="nav-link d-inline-block  text-black-50 font-weight-bold pr-0"
+                      id="headerEmail">  Пользователь:</span>
+                <span>состоит в Касте(ax):</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link d-inline-block pr-0"
+                      id="headerRoles"></span>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+                <a class="nav-link d-inline-block text-warning font-weight-normal"
+                   href="/logout">Депортация</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid vh-100 pl-0 pr-0"
+     style="background-color: #c2400f">
+    <div class="row w-100 h-100 ml-0">
+        <!-- Левая нав панель кнопки ADMIN USER-->
+
+        <div class="col-2 pr-0 pr-0 pl-0 pt-3">
+
+            <div class="nav flex-column nav-pills"
+                 id="v-pills-tab"
+                 role="tablist"
+                 aria-orientation="vertical">
+
+                <a sec:authorize="hasRole('ADMIN')"
+                   class="nav-link active"
+                   style="background-color: black; color: orangered"
+                   id="v-pills-admin-tab"
+                   data-toggle="pill"
+                   href="#v-pills-admin"
+                   role="tab"
+                   aria-controls="v-pills-admin"
+                   aria-selected="true">Всемогущий</a>
+
+                <a sec:authorize="hasRole('USER')"
+                   class="nav-link"
+                   style="background-color: #539617; color:#f0da80"
+                   href="/user">Пресмыкающий</a>
+            </div>
+        </div>
+
+        <div class="col-10  tab-content pt-3 pl-4 "
+             id="v-pills-tabContent">
+
+            <!-- Контент  "Admin"-->
+            <div sec:authorize="hasRole('ADMIN')"
+                 class="tab-pane fade show active pl-2 pr-2"
+                 id="v-pills-admin"
+                 role="tabpanel"
+                 aria-labelledby="v-pills-admin-tab">
+
+                <h1 class="pl-1"
+                    style="color: cornsilk">Табло Душегуба</h1>
+                <!--горизонтальные табы -->
+                <div class="mt-3">
+                    <ul class="nav nav-tabs"
+                        id="adminTab"
+                        role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               style="background-color: #2f020b;
+                                color: #ec1212;
+                                border-bottom-width: thick"
+                               id="users_Table-tab"
+                               data-toggle="tab"
+                               href="#users_Table"
+                               role="tab"
+                               aria-controls="users_table"
+                               aria-selected="true">ХолУИ на балансе</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               style="background-color: #569f15;
+                               color: #fdf452;
+                               border-bottom-width: thick"
+                               id="new_user-tab"
+                               data-toggle="tab"
+                               href="#new_user"
+                               role="tab"
+                               aria-controls="new_user"
+                               aria-selected="false">Свежатинка</a>
+                        </li>
+                    </ul>
+                    <!-- Левая нав панель Контент Вкладка "Admin"-->
+
+                    <div class="tab-content" id="adminTabContent">
+                        <!--Контент Вкладка "Admin"- подвкладка "Users table"-->
+                        <div class="card tab-pane fade show active"
+                             id="users_Table"
+                             role="tabpanel"
+                             aria-labelledby="users_Table-tab">
+
+                            <div class="card-header">
+                                <h5 class="align-middle"
+                                    style="color: #ffdd00;
+                                font-size: 22px;"
+                                >Поголовье<br><b>скота</b></h5>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <table class="table table-striped"
+                                           style="color: cornsilk">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Число зверя</th>
+                                            <th scope="col">Адрес для указов</th>
+                                            <th scope="col">Кличка</th>
+                                            <th scope="col">Даты вскрытия упаковки</th>
+                                            <th scope="col">Отряд</th>
+                                            <th scope="col">Отправить на доработку</th>
+                                            <th scope="col">Эмиграция в <b>РАЙ</b></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="users_table_body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- EDIT Modal window content-->
+                        <div class="modal fade"
+                             id='editModal'
+                             tabindex="-1"
+                             aria-labelledby="editModalLabel"
+                             aria-hidden="true">
+
+                            <div class="modal-dialog modal-dialog-centered ">
+                                <div class="modal-content"
+                                     style="background-color: #d38d9a">>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="editModalLabel"> Обтесать Бу-ра-ти-но</h5>
+                                        <button type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container justify-content-center col-7 ">
+                                            <form id="editForm" role="form"
+                                                  action="/admin/users/edit/{id}"
+                                                  method="POST">
+                                                <div class="form-group text-center ">
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="editId">Клеймо скотинки </label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="editId"
+                                                           value=""
+                                                           id="editId"
+                                                           name="id"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="editEmail">Адрес для приказов </label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="email"
+                                                           value=""
+                                                           id="editEmail"
+                                                           name="email"
+                                                           placeholder=""/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="passwordEdit">Заклинание </label>
+
+                                                    <input class="form-control mb-3 password"
+                                                           type="password"
+                                                           value=""
+                                                           id="passwordEdit"
+                                                           name="password"
+                                                           placeholder=""/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="usernameEdit">Кличка </label>
+
+                                                    <input class="form-control mb-3" type="text"
+                                                           value=""
+                                                           id="usernameEdit"
+                                                           name="username"
+                                                           placeholder=""/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="ageEdit">Дата распоковки</label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="number"
+                                                           value=""
+                                                           id="ageEdit"
+                                                           name="age"
+                                                           placeholder=""/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="rolesEdit">Отряд </label>
+
+                                                    <select class="form-control mb-3 "
+                                                            multiple="multiple"
+                                                            value=""
+                                                            required="true"
+                                                            name="rolesSelectedFromForm"
+                                                            size="2"
+                                                            id="rolesEdit">
+
+                                                        <option
+                                                                value="2"
+                                                                id="editSelectAdmin">ADMIN
+                                                        </option>
+
+                                                        <option
+                                                                value="1"
+                                                                id="editSelectUser">USER
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer ">
+                                            <button
+                                                    class="btn btn-secondary align-middle"
+                                                    data-dismiss="modal">
+                                                Итак сойдет
+                                            </button>
+
+                                            <button type="submit"
+                                                    class="btn btn-primary align-middle"
+                                                    id="submitEdit">
+                                                Переработать отходы
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DELETE Modal window content-->
+                        <div class="modal fade"
+                             id='deleteModal'
+                             tabindex="-1"
+                             aria-labelledby="deleteModalLabel"
+                             aria-hidden="true">
+
+                            <div class="modal-dialog modal-dialog-centered ">
+                                <div class="modal-content"
+                                     style="background-color: black;
+                                      color: orangered">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="deleteModalLabel">Покарать</h5>
+
+                                        <button type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true"
+                                                  style="color: cornsilk">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container justify-content-center col-7 ">
+                                            <form id="deleteForm"
+                                                  role="form"
+                                                  action="/admin/users/delete/{id}"
+                                                  method="POST">
+                                                <div class="form-group text-center ">
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="idDelete">Клеймо </label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="id"
+                                                           value=""
+                                                           id="idDelete"
+                                                           name="id"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="deleteEmail">Адрес для указов </label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="email"
+                                                           value=""
+                                                           id="deleteEmail"
+                                                           name="email"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="passwordDelete">Заклинание </label>
+
+                                                    <input class="form-control mb-3 password"
+                                                           type="password"
+                                                           value=""
+                                                           id="passwordDelete"
+                                                           name="password"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="usernameDelete">Кличка</label>
+
+                                                    <input class="form-control mb-3" type="text"
+                                                           value=""
+                                                           id="usernameDelete"
+                                                           name="username"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="ageDelete">Дата разгерметизации </label>
+
+                                                    <input class="form-control mb-3"
+                                                           type="number"
+                                                           value=""
+                                                           id="ageDelete"
+                                                           name="age"
+                                                           placeholder=""
+                                                           readonly/>
+
+                                                    <label class="font-weight-bold mb-0"
+                                                           for="roleDelete">Отряд</label>
+
+                                                    <select class="form-control mb-3 "
+                                                            multiple="multiple"
+                                                            value=""
+                                                            required="true"
+                                                            name="rolesSelectedFromForm"
+                                                            size="2"
+                                                            id="roleDelete"
+                                                            disabled>
+
+                                                        <option selected=""
+                                                                value="2">ADMIN
+                                                        </option>
+
+                                                        <option selected=""
+                                                                value="1">USER
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer ">
+                                            <button
+                                                    class="btn btn-secondary align-middle"
+                                                    style="background-color: mediumseagreen"
+                                                    data-dismiss="modal">Душегуб погорячился
+                                            </button>
+
+                                            <button type="submit"
+                                                    class="btn btn-danger align-middle"
+                                                    id="submitDelete">Покарать!
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Контент Вкладка "Admin" - подвкладка "new user" -->
+
+                        <div class="card tab-pane fade"
+                             id="new_user"
+                             role="tabpanel"
+                             aria-labelledby="new_user-tab">
+                            <div class="card-header">
+                                <h5 class="align-middle"
+                                    style="color: cornsilk">Принять Свежатинку</h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="container justify-content-center col-3"
+                                     style="background-color: burlywood">
+
+                                    <form>
+                                        <div class="form-group text-center ">
+
+                                            <label class="font-weight-bold mb-0"
+                                                   for="emailNew">Адрес для указов</label>
+
+                                            <input class="form-control mb-3"
+                                                   type="email"
+                                                   id="emailNew"
+                                                   placeholder=""
+                                                   required/>
+
+                                            <label class="font-weight-bold mb-0 password"
+                                                   for="passwordNew">Заклинание </label>
+
+                                            <input class="form-control mb-3"
+                                                   type="password"
+                                                   id="passwordNew"
+                                                   placeholder=""
+                                                   required/>
+
+                                            <label class="font-weight-bold mb-0"
+                                                   for="confirm_passwordNew">Подтвердить заклинание</label>
+
+                                            <input class="form-control mb-3 confirm_password"
+                                                   type="password"
+                                                   id="confirm_passwordNew"
+                                                   placeholder=""
+                                                   required/>
+
+                                            <label class="font-weight-bold mb-0"
+                                                   for="usernameNew">Кличка</label>
+
+                                            <input class="form-control mb-3"
+                                                   type="text"
+                                                   id="usernameNew"
+                                                   placeholder=""
+                                                   required/>
+
+                                            <label class="font-weight-bold mb-0"
+                                                   for="ageNew">Дата откупорки</label>
+
+                                            <input class="form-control mb-3"
+                                                   type="number"
+                                                   id="ageNew"
+                                                   placeholder=""
+                                                   required/>
+
+                                            <label class="font-weight-bold mb-0"
+                                                   for="rolesNew">Отряд</label>
+
+                                            <select class="form-control mb-3"
+                                                    multiple="multiple"
+                                                    required="true"
+                                                    size="2"
+                                                    id="rolesNew">
+
+                                                <option value="2">ADMIN</option>
+                                                <option value="1">USER</option>
+
+                                            </select>
+                                            <input type="submit"
+                                                   class="btn btn-success btn-lg"
+                                                   style="background-color: orangered;
+                                                    color: cornsilk"
+                                                   value="покласть МЯСО на полку"
+                                                   id="submitNew"/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="/static/admin.js"></script>
+
+</body>
+</html>
