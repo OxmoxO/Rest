@@ -1,6 +1,6 @@
 package ox.mox.Rest.Controllers;
 
-import ox.mox.Rest.Business_Logics.User.UserService;
+import ox.mox.Rest.Services.User.UserService;
 import ox.mox.Rest.Models.User;
 
 import org.springframework.security.core.*;

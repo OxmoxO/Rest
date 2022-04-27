@@ -1,4 +1,4 @@
-package ox.mox.Rest.Business_Logics.User;
+package ox.mox.Rest.Services.User;
 
 import ox.mox.Rest.Models.User;
 

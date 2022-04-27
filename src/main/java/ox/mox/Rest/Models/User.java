@@ -26,7 +26,7 @@ public class User implements UserDetails {
 
     private Integer age;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private Set<Role> roles;
 
     @Transient

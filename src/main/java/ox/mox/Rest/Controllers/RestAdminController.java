@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ox.mox.Rest.Business_Logics.User.UserService;
+import ox.mox.Rest.Services.User.UserService;
 import ox.mox.Rest.Models.User;
 
 import java.security.Principal;

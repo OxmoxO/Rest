@@ -1,6 +1,6 @@
-package ox.mox.Rest.Business_Logics.User;
+package ox.mox.Rest.Services.User;
 
-import ox.mox.Rest.Business_Logics.Role.RoleService;
+import ox.mox.Rest.Services.Role.RoleService;
 import ox.mox.Rest.Repositories.User.UserRepository;
 import ox.mox.Rest.Models.*;
 

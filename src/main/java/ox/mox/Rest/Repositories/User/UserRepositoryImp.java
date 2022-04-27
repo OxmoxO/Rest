@@ -90,10 +90,9 @@ public class UserRepositoryImp implements UserRepository {
     @Override
     public List<User> getUsers() {
 
-        Query query = entityManager
-                .createQuery("from User");
-
-        return (List<User>) query.getResultList();
+        return  entityManager
+                .createQuery("from User", User.class)
+                .getResultList();
     }
 
 }

@@ -2,8 +2,8 @@ package ox.mox.Rest;
 
 import ox.mox.Rest.Models.Role;
 import ox.mox.Rest.Models.User;
-import ox.mox.Rest.Business_Logics.Role.RoleService;
-import ox.mox.Rest.Business_Logics.User.UserService;
+import ox.mox.Rest.Services.Role.RoleService;
+import ox.mox.Rest.Services.User.UserService;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.context.event.*;
@@ -47,9 +47,19 @@ public class Init {
 
         User a = new User
                 ("admin", "admin", "admin@admin.ru", 35);
+        User tom = new User
+                ("tom", "tom", "tom@tom.ru", 25);
+
+        User afan = new User
+                ("afan", "afan", "afan@afan.ru", 35);
 
         u.setRolesSelectedFromForm("1");
         a.setRolesSelectedFromForm("1,2");
+        tom.setRolesSelectedFromForm("1,2");
+        afan.setRolesSelectedFromForm("1");
+
+        userService.create(afan);
+        userService.create(tom);
         userService.create(u);
         userService.create(a);
         return true;

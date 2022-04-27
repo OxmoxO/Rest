@@ -1,4 +1,4 @@
-package ox.mox.Rest.Business_Logics.Role;
+package ox.mox.Rest.Services.Role;
 
 import ox.mox.Rest.Models.Role;
 
